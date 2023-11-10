@@ -36,6 +36,8 @@ set -gx PATH $ANDROID_HOME/platform-tools $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
+# pnpm
+set -gx PNPM_HOME "~/.local/share/pnpm" $PATH
 
 if type -q exa
   alias ll "exa -l -g --icons"
