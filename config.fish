@@ -10,9 +10,9 @@ set fish_greeting ''
     # Commands to run in interactive sessions can go here
 #end
 
-alias nb "npm run build"
-alias nbs "npm run b"
-alias nbc "npm run build:client"
+alias nb "npm run dev"
+alias nbs "npm run dev:server"
+alias nbc "npm run dev:client"
 alias ns "npm run s"
 alias nc "npm run c"
 alias nrd "npm run resetdb"
@@ -20,8 +20,8 @@ alias nsd "npm run setupdb"
 alias nbsq "npm run bsq"
 alias gp "git push -u origin HEAD"
 alias gpn "git push -u origin HEAD --no-verify"
-alias gpf "git push -f -u origin HEAD"
-alias gpfn "git push -f -u origin HEAD --no-verify"
+alias gpf "git push --force-with-lease -u origin HEAD"
+alias gpfn "git push --force-with-lease -u origin HEAD --no-verify"
 alias gcsm "git commit -s -m"
 
 set -gx PATH bin $PATH
@@ -29,7 +29,8 @@ set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
 #Android
-set -gx ANDROID_HOME ~/Android/Sdk $PATH
+set -gx ANDROID_HOME ~/Android/Sdk
+set -gx PATH $ANDROID_HOME $PATH
 set -gx PATH $ANDROID_HOME/emulator $PATH
 set -gx PATH $ANDROID_HOME/platform-tools $PATH
 
@@ -37,7 +38,8 @@ set -gx PATH $ANDROID_HOME/platform-tools $PATH
 set -gx PATH node_modules/.bin $PATH
 
 # pnpm
-set -gx PNPM_HOME "~/.local/share/pnpm" $PATH
+set -gx PNPM_HOME ~/.local/share/pnpm
+set -gx PATH $PNPM_HOME $PATH
 
 if type -q exa
   alias ll "exa -l -g --icons"
@@ -46,3 +48,5 @@ end
 
 pyenv init - | source
 starship init fish | source
+
+status --is-interactive; and source (pyenv virtualenv-init -|psub)
