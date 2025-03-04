@@ -50,3 +50,15 @@ pyenv init - | source
 starship init fish | source
 
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
+function sshvpn
+    if test (count $argv) -lt 1
+        echo "Usage: sshvpn user@host"
+        return 1
+    end
+
+    sudo openvpn --config ~/openvpn-config/config.ovpn --route-nopull --dev tun0 --daemon
+    sleep 5
+    ssh $argv
+    sudo pkill -SIGTERM openvpn
+end
